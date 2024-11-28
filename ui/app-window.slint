@@ -1,0 +1,259 @@
+import { HorizontalBox, VerticalBox, LineEdit, GridBox, Button, GroupBox } from "std-widgets.slint";
+
+export struct Coordinate3D {
+    x: string,
+    y: string,
+    z: string,
+}
+
+export enum CalculateDirection {
+    Geo2Ecef,
+    Ecef2Geo,
+}
+
+export global StatusPalette {
+    in-out property <color> normal: rgb(0,255,0);
+    in-out property <color> error: rgb(255,0,0);
+}
+
+export component MainWindow inherits Window {
+    icon: @image-url("icons/world.png");
+    title: "GeoEcef";
+    in-out property <color> status_color: StatusPalette.normal;
+    in property <string> ylat;
+    in property <string> xlon;
+    in property <string> zhi;
+    in-out property <CalculateDirection> calc_dir;
+    in property <string> xcart;
+    in property <string> ycart;
+    in property <string> zcart;
+    in property <Coordinate3D> in_geo:{ y: lat.text, x: lon.text, z: hi.text };
+    in property <Coordinate3D> in_ecef:{ y: y.text, x: x.text, z: z.text };
+    in-out property <string> status;
+    callback transform_coordinate(CalculateDirection, Coordinate3D);
+    callback erase_latlon();
+    callback erase_ecef();
+    callback example_latlon();
+    callback example_ecef();
+    callback copy_latlon();
+    callback copy_ecef();
+    VerticalLayout {
+        GridBox {
+            GroupBox {
+                title: "Geographic (GNSS) on WGS84";
+                VerticalBox {
+                    GridBox {
+                        spacing: 8px;
+                        Row {
+                            Text {
+                                height: 40px;
+                                vertical-alignment: TextVerticalAlignment.center;
+                                font-size: 16px;
+                                text: "Latitude (φ):";
+                            }
+
+                            lat := LineEdit {
+                                height: 40px;
+                                read-only: calc_dir == CalculateDirection.Ecef2Geo ? true : false;
+                                font-size: 16px;
+                                text: root.ylat;
+                            }
+
+                            Button {
+                                width: 40px;
+                                height: 40px;
+                                icon: @image-url("icons/eraser.svg");
+                                clicked => {
+                                    root.erase_latlon();
+                                }
+                            }
+                        }
+
+                        Row {
+                            Text {
+                                height: 40px;
+                                vertical-alignment: TextVerticalAlignment.center;
+                                font-size: 16px;
+                                text: "Longitude (λ):";
+                            }
+
+                            lon := LineEdit {
+                                height: 40px;
+                                read-only: calc_dir == CalculateDirection.Ecef2Geo ? true : false;
+                                font-size: 16px;
+                                text: root.xlon;
+                            }
+
+                            Button {
+                                width: 40px;
+                                height: 40px;
+                                icon: @image-url("icons/bulb.svg");
+                                clicked => {
+                                    root.example_latlon();
+                                }
+                            }
+                        }
+
+                        Row {
+                            Text {
+                                height: 40px;
+                                vertical-alignment: TextVerticalAlignment.center;
+                                font-size: 16px;
+                                text: "Height (h):";
+                            }
+
+                            hi := LineEdit {
+                                height: 40px;
+                                read-only: calc_dir == CalculateDirection.Ecef2Geo ? true : false;
+                                font-size: 16px;
+                                text: root.zhi;
+                            }
+
+                            Button {
+                                width: 40px;
+                                height: 40px;
+                                icon: @image-url("icons/copy.svg");
+                                clicked => {
+                                    root.copy_latlon();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            VerticalBox {
+                spacing: 8px;
+                Button {
+                    primary: false;
+                    width: 60px;
+                    height: 40px;
+                    icon: calc_dir == CalculateDirection.Geo2Ecef ? @image-url("icons/right_arrow.svg") : @image-url("icons/left_arrow.svg");
+                    clicked => {
+                        if calc_dir == CalculateDirection.Geo2Ecef {
+                            calc_dir = CalculateDirection.Ecef2Geo;
+                            status = "Calculate the coordinates from Geocentric to Geographic (GNSS).";
+                            status_color = StatusPalette.normal;
+                        } else {
+                            calc_dir = CalculateDirection.Geo2Ecef;
+                            status = "Calculate the coordinates from Geographic (GNSS) to Geocentric.";
+                            status_color = StatusPalette.normal;
+                        }
+                    }
+                }
+
+                Button {
+                    primary: true;
+                    width: 60px;
+                    icon: @image-url("icons/calculator.svg");
+                    clicked => {
+                        if (calc_dir == CalculateDirection.Geo2Ecef) {
+                            root.transform_coordinate(calc_dir, in_geo);
+                        } else {
+                            root.transform_coordinate(calc_dir, in_ecef);
+                        }
+                    }
+                }
+            }
+
+            GroupBox {
+                title: "XYZ (Geocentric) on WGS84";
+                VerticalBox {
+                    GridBox {
+                        spacing: 6px;
+                        Row {
+                            Text {
+                                height: 40px;
+                                vertical-alignment: TextVerticalAlignment.center;
+                                font-size: 16px;
+                                text: "X:";
+                            }
+
+                            Text {
+                                height: 40px;
+                                vertical-alignment: TextVerticalAlignment.center;
+                                x := LineEdit {
+                                    read-only: calc_dir == CalculateDirection.Geo2Ecef ? true : false;
+                                    font-size: 16px;
+                                    text: root.xcart;
+                                }
+                            }
+
+                            Button {
+                                width: 40px;
+                                height: 40px;
+                                icon: @image-url("icons/eraser.svg");
+                                clicked => {
+                                    root.erase_ecef();
+                                }
+                            }
+                        }
+
+                        Row {
+                            Text {
+                                height: 40px;
+                                vertical-alignment: TextVerticalAlignment.center;
+                                font-size: 16px;
+                                text: "Y:";
+                            }
+
+                            Text {
+                                height: 40px;
+                                vertical-alignment: TextVerticalAlignment.center;
+                                y := LineEdit {
+                                    font-size: 16px;
+                                    read-only: calc_dir == CalculateDirection.Geo2Ecef ? true : false;
+                                    text: root.ycart;
+                                }
+                            }
+
+                            Button {
+                                width: 40px;
+                                height: 40px;
+                                icon: @image-url("icons/bulb.svg");
+                                clicked => {
+                                    root.example_ecef();
+                                }
+                            }
+                        }
+
+                        Row {
+                            Text {
+                                height: 40px;
+                                vertical-alignment: TextVerticalAlignment.center;
+                                font-size: 16px;
+                                text: "Z:";
+                            }
+
+                            Text {
+                                height: 40px;
+                                z := LineEdit {
+                                    font-size: 16px;
+                                    read-only: calc_dir == CalculateDirection.Geo2Ecef ? true : false;
+                                    text: root.zcart;
+                                }
+                            }
+
+                            Button {
+                                width: 40px;
+                                height: 40px;
+                                icon: @image-url("icons/copy.svg");
+                                clicked => {
+                                    root.copy_ecef();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        HorizontalBox {
+            Text {
+                vertical-alignment: TextVerticalAlignment.center;
+                color: status_color;
+                text: root.status;
+            }
+        }
+    }
+}
