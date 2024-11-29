@@ -3,4 +3,4 @@ After dedicating the past four months to studying the Rust programming language 
 
 It took me about a month to finish the YouTube course. One particular tutorial stood out—it was exceptionally well-taught, paced slowly, and never felt rushed. The explanations were so detailed that anything unclear from the book became much easier to understand after watching the video.
 
-![alt text](http://url/to/img.png)
+![GeoEcef]([http://url/to/img.png](https://github.com/pbroboto/geoecef/blob/main/images/geoecef_feature_image.png))
