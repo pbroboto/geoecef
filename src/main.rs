@@ -177,11 +177,9 @@ fn parse_ecef(coor3d: &Coordinate3D) -> Result<(f64, f64, f64), ParseFloatError>
     };
     let zz = match coor3d.z.parse::<f64>() {
         Err(e) => {
-            //ui.set_status(format!("Error: {}", e).into());
             return Err(e);
         }
         Ok(val) => {
-            //ui.set_status("".into());
             val
         }
     };
