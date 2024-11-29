@@ -3,4 +3,6 @@ After dedicating the past four months to studying the Rust programming language 
 
 It took me about a month to finish the YouTube course. One particular tutorial stood out—it was exceptionally well-taught, paced slowly, and never felt rushed. The explanations were so detailed that anything unclear from the book became much easier to understand after watching the video.
 
+Reading books provides the theoretical foundation, but applying that knowledge is where the real integration happens. It tests whether the understanding gained is sufficient to write a functional program. Can that knowledge piece together the jigsaw puzzle of solving real-world problems?
+
 ![GeoEcef](https://github.com/pbroboto/geoecef/blob/main/images/geoecef_feature_image.png)
