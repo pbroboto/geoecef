@@ -17,7 +17,9 @@ PS C:\Users\priab\projects>cd geoecef
 PS C:\Users\priab\projects\geoecef>cargo build
 PS C:\Users\priab\projects\geoecef>cargo run
 ```
-You will see the desktop application:
+You will my first desktop application built with Rust and Slint:
 ![GeoEcef on first run](https://github.com/pbroboto/geoecef/blob/main/images/geoecef_first_run.jpg)
+
+Click the left or right bulb for examples, and use the arrow to set the direction of the calculation. Click the calculator icon to transform the coordinates. To clear the data, click the eraser icon, and to copy the result to the clipboard, click the copy icon.
 
 ![GeoEcef](https://github.com/pbroboto/geoecef/blob/main/images/geoecef_feature_image.png)
