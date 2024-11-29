@@ -5,4 +5,8 @@ It took me about a month to finish the YouTube course. One particular tutorial s
 
 Reading books provides the theoretical foundation, but applying that knowledge is where the real integration happens. It tests whether the understanding gained is sufficient to write a functional program. Can that knowledge piece together the jigsaw puzzle of solving real-world problems?
 
+I use Slint for graphical user interfaces. The Slint project was first introduced in early 2022, making it a relatively new framework. Despite its young age, it has gained attention for its modern design, Rust-based architecture, and focus on lightweight, efficient UI creation. Its growth and adoption indicate a promising future as developers explore alternatives to more established frameworks like Qt.
+
+From my initial experience, Slint is still not as feature-rich as Qt. However, learning and using Slint to create a user interface is relatively straightforward. With some study and practice, you can quickly grasp its concepts and effectively design UI elements.
+
 ![GeoEcef](https://github.com/pbroboto/geoecef/blob/main/images/geoecef_feature_image.png)
