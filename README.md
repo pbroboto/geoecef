@@ -9,4 +9,13 @@ I use Slint for graphical user interfaces. The Slint project was first introduce
 
 From my initial experience, Slint is still not as feature-rich as Qt. However, learning and using Slint to create a user interface is relatively straightforward. With some study and practice, you can quickly grasp its concepts and effectively design UI elements.
 
+First please clone my repository, 
+
+```console
+PS C:\Users\priab\projects>git clone https://github.com/pbroboto/geoecef
+PS C:\Users\priab\projects>cd geoecef
+PS C:\Users\priab\projects\geoecef>cargo build
+PS C:\Users\priab\projects\geoecef>cargo run
+```
+
 ![GeoEcef](https://github.com/pbroboto/geoecef/blob/main/images/geoecef_feature_image.png)
