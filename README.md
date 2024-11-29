@@ -17,7 +17,7 @@ PS C:\Users\priab\projects>cd geoecef
 PS C:\Users\priab\projects\geoecef>cargo build
 PS C:\Users\priab\projects\geoecef>cargo run
 ```
-
+You will see the desktop application:
 ![GeoEcef on first run](https://github.com/pbroboto/geoecef/blob/main/images/geoecef_first_run.jpg)
 
 ![GeoEcef](https://github.com/pbroboto/geoecef/blob/main/images/geoecef_feature_image.png)
